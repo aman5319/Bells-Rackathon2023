@@ -10,3 +10,4 @@ flask
 fastapi
 uvicorn
 tqdm
+angular
