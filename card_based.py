@@ -32,7 +32,7 @@ def generate_genuine_data_small_amount(number,):
                                 "trans_currency","mcc","trans_amount","trans_date",
                                "trans_payment_method","trans_verify_method","trans_status"])
     ],axis=1
-    )
+    ).reset_index(drop=True)
                                                                      
 def generate_genuine_data_huge_amount(number,):
     a = [generate_data.generate_customer_info()]*number
@@ -62,7 +62,7 @@ def generate_genuine_data_huge_amount(number,):
                                 "trans_currency","mcc","trans_amount","trans_date",
                                "trans_payment_method","trans_verify_method","trans_status"])
     ],axis=1
-    )
+    ).reset_index(drop=True)
 
 # high amount payment  id-> 1
 def high_amount():
@@ -103,7 +103,7 @@ def high_amount():
         ],axis=1)
         fake["fake"]=True
         all_data.append(pd.concat([genuine,fake]))
-    return pd.concat(all_data)
+    return pd.concat(all_data).reset_index(drop=True)
 
 # high_volume small amount  # id -> 2
 def high_volume_small_amount():
@@ -143,7 +143,7 @@ def high_volume_small_amount():
         ],axis=1)
         fake["fake"]=True
         all_data.append(pd.concat([genuine,fake]))
-    return pd.concat(all_data)
+    return pd.concat(all_data).reset_index(drop=True)
 
 #Obscure Merchant/Geo-Location hopping/Phising website/
 #id -> 3
@@ -187,10 +187,10 @@ def fake_merchant_false_location():
         ],axis=1)
         fake["fake"]=True
         all_data.append(pd.concat([genuine,fake]))
-    return pd.concat(all_data)
+    return pd.concat(all_data).reset_index(drop=True)
 
 # Multiple Retries and then trasacting into high risk category
-def authentication_error():
+def multiple_retry():
     all_data= []
     for i in tqdm(range(generate_data.GENERATE_COUNT//2)):
         genuine = generate_genuine_data_small_amount(random.randint(1,4))
@@ -242,7 +242,7 @@ def authentication_error():
         ],axis=1)
         fake["fake"]=True
         all_data.append(pd.concat([genuine,fake]))
-    return pd.concat(all_data)
+    return pd.concat(all_data).reset_index(drop=True)
 
 
 def money_laundring():
@@ -250,11 +250,4 @@ def money_laundring():
     df1 = pd.read_csv("money_laundring.csv")
     a = random.randint(1000,2000)
     b = random.randint(3000,4000)
-    return pd.concat([df1.iloc[a:b],df.iloc[a:b]]) 
-
-
-def main():
-    temp_dir = "local_data"
-    high_amount().to_csv(f"{temp_dir}/big_amount_deduction.csv",index=False)
-    high_volume_small_amount().to_csv(f"{temp_dir}/high_volume_small_deduction.csv",index=False)
-    fake_merchant_false_location().to_csv(f"{temp_dir}/fake_merchant_false_location.csv",index=False)
+    return pd.concat([df1.iloc[a:b],df.iloc[a:b]]).reset_index(drop=True)
