@@ -1,0 +1,16 @@
+<div class="col-lg-12">
+    <h2 mat-dialog-title>Generate Synthetic Data </h2>
+    <mat-dialog-content>
+
+
+        <div *ngFor="let type of transactions">
+            <mat-checkbox [(ngModel)]=" type.isChecked" color="primary">
+                {{type.name}}
+            </mat-checkbox>
+        </div>
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+        <button mat-button mat-dialog-close>Cancel</button>
+        <button mat-button [mat-dialog-close]="transactions" cdkFocusInitial>Train</button>
+    </mat-dialog-actions>
+</div>

@@ -258,8 +258,3 @@ def main():
     high_amount().to_csv(f"{temp_dir}/big_amount_deduction.csv",index=False)
     high_volume_small_amount().to_csv(f"{temp_dir}/high_volume_small_deduction.csv",index=False)
     fake_merchant_false_location().to_csv(f"{temp_dir}/fake_merchant_false_location.csv",index=False)
-
-    
-
-
-main()
