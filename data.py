@@ -12,18 +12,25 @@ from datetime import timedelta
 
 categorical = {
     "transaction_category": ["Retail", "Grocery", "Dining", "Entertainment", "Utilities", "Travel", "Other"],
+   
     "transaction_currency": ["USD", "EUR","JPY", "AUD", "CAD", "Other"],
+   
     "card_type": ["Visa", "MasterCard", "American Express", "Rupay", "Other"],
+   
     "customer_segment": ["Retail", "Business", "Student", "Premium", "Other"],
+   
     "false_merchant":[f"fake_merchant_{i}" for i in range(10)],
+   
     "true_merchant":["amazon","airtel","rakuten","zomato","swiggy", "instamart","chai talks","amazon gift cards"],
+   
     "indian_city":['Mumbai', 'Delhi', 'Bangalore', 'Chennai', 'Kolkata', 'Hyderabad', 'Pune', 'Ahmedabad', 'Jaipur', 'Lucknow'],
+   
     "random_city":['New York City, USA', 'Paris, France', 'London, UK', 'Tokyo, Japan', 'Sydney, Australia', 'Dubai, UAE', 'Rio de Janeiro, Brazil', 'Cape Town, South Africa', 'Toronto, Canada', 'Singapore, Singapore']
 }
 
 #In terms of payment amount, huge bulk payments in a short frame of time.
 class Data:
-    GENERATE_COUNT=2000
+    GENERATE_COUNT=1000
     def __init__(self,):
         self.age_range = torch.tensor(list(range(18,70)))
         age_prob = torch.rand(len(self.age_range))
@@ -53,17 +60,25 @@ class Data:
         else:
             return random.choice(categorical["true_merchant"])
             
-    def generate_merchant_location(self,indian):
+    def generate_merchant_location(self,indian, existing_location=None):
         if indian:
-            return random.choice(categorical["indian_city"])
+            l =  random.choice(categorical["indian_city"])
         else:
-            return random.choice(categorical["random_city"])
+            l =  random.choice(categorical["random_city"])
+        if (existing_location is not None) and (l == existing_location):
+            self.generate_merchant_location(indian, existing_location)
+        else:
+            return l
     
-    def generate_transaction_location(self,indian):
+    def generate_transaction_location(self,indian, existing_location=None):
         if indian:
-            return random.choice(categorical["indian_city"])
+            l =  random.choice(categorical["indian_city"])
         else:
-            return random.choice(categorical["random_city"])
+            l =  random.choice(categorical["random_city"])
+        if (existing_location is not None) and (l == existing_location):
+            self.generate_merchant_location(indian, existing_location)
+        else:
+            return l
 
     def generate_transaction_amount(self, small_amount, huge_amount,whole_number):
         # amount 
@@ -72,19 +87,22 @@ class Data:
                 amount =  torch.randint(5000,50000,(1,))
             else:
                 amount =   torch.round(torch.randint(5000,50000,(1,)) +torch.randn(1),decimals=2)
-            return amount
+            return amount.item()
+        
         if small_amount:
             random_number = torch.rand(1) * 49 + 1
             if whole_number:
-                amount =   torch.ceil(random_number).item()
+                amount =  torch.ceil(random_number)
             else:
-                amount =   torch.round(random_number,decimals=2) 
+                amount =  torch.round(random_number,decimals=2) 
+
         else:
             if whole_number:
                 amount =  torch.randint(100,4000,(1,))
             else:
                 amount =   torch.round(torch.randint(100,4000,(1,)) +torch.randn(1),decimals=2)
-        return amount
+            
+        return amount.item()
     
     def generate_transaction_category(self):
         return random.choice(categorical["transaction_category"])
@@ -110,3 +128,5 @@ class Data:
             last_date = last_date+ timedelta(seconds = random.randint(20,50))
             dates.append(last_date)
         return dates
+    
+generate_data = Data()
