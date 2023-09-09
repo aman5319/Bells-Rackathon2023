@@ -81,12 +81,12 @@ export class TransactionType {
   name: string;
   id: number;
   isChecked: boolean = false;
-
+  fileName: string;
   constructor(name: string, id: number, isChecked = false, fileName: string) {
     this.name = name;
     this.id = id;
-    isChecked = isChecked
-    fileName = fileName
+    this.isChecked = isChecked
+    this.fileName = fileName
   }
 }
 

@@ -59,6 +59,7 @@ return count;
     specificItem.isTraining = isTraining;
     specificItem.files = files;
     localStorage.setItem(key, JSON.stringify(retrievedArray));
+    return retrievedArray;
   }
 
   getFilesData(key: string, index: number) {

@@ -13,6 +13,14 @@ import { LocalStorageService } from './local-storage.service';
 
 export class AppComponent {
   title = 'Bells';
+  transactions: TransactionType[] =
+  [
+    new TransactionType('Sudden Deduction of huge amount', 1, false, 'big_amount_deduction'),
+    new TransactionType('High Volume Small Deductions', 2, false, 'high_volume_small_deduction'),
+    new TransactionType('Fake Merchants/Geo-Location Hopping/ Phishing website', 3, false, 'fake_merchant_false_location'),
+    new TransactionType('Multiple Retries before succes/Transactions in High-Risk Category (Casino, Child Ponography) ', 4, false, 'multiple_retry'),
+    new TransactionType('Money Laundering', 5, false, 'money_laundering')
+  ];
 
 
   displayedColumns: string[] = ['name', 'progress', 'actions'];
@@ -52,7 +60,7 @@ export class AppComponent {
 
   private CallAPI(value: { isTraining: boolean; isCompleted: boolean; isCancelled: boolean; name: string; id: number; transactionStrategies: any; }, count: number) {
     this.appService.postData(value.transactionStrategies, value.name).subscribe((result: any) => {
-      this.localStorage.getSpecificIndexDataAndSetDataBack(this.title, count, false, true, false, result);
+      this.dataSource = this.localStorage.getSpecificIndexDataAndSetDataBack(this.title, count - 1, false, true, false, result);
       this._snackBar.open("Data is ready to download", "Close");
     }, () => {
       this._snackBar.open("An error occured while trying to fetch the API", "Close");
@@ -113,18 +121,34 @@ export class AppComponent {
     return this.localStorage.getItem(this.title);
   }
 
+  analyseData(row: TransactionData) {
+    row.transactionStrategies?.forEach(element => {
+      let tr = this.transactions.find(x => x.id == element);
+      let name = this.getFileName(tr?.id, tr?.fileName, '.html', row.name);
+      window.open(name, "_blank");
+    });
+  }
+
+  getFileName(index: number | undefined, name: string | undefined, extension: string, batchNAme: string) {
+    let t1 = this.transactions.find(x => x.id == index);
+    return 'assets/localData/' + batchNAme + '/'+ name + extension;
+  }
+
+  getOutputFile(batchNAme: string) {
+    return 'assets/localData/' + batchNAme + '/output.zip';
+  }
+
   downloadData(row: TransactionData) {
-    this.localStorage.getFilesData(this.title, row.id).forEach((element: string) => {
-      this.appService.getFile('assets/localData' + row.name + '/' + element).subscribe((response)=> {
+    
+      this.appService.getFile(this.getOutputFile(row.name)).subscribe((response)=> {
         const a = document.createElement("a");
-          a.href = "data:text/csv," + response;
+          a.href = "data:text/zip," + response;
           let filename = "element";
-          a.setAttribute("download", filename + ".csv");
+          a.setAttribute("download", filename + ".zip");
           document.body.appendChild(a);
           a.click();
           document.body.removeChild(a);
       });
-    });
    
   }
 }
@@ -139,5 +163,6 @@ export interface TransactionData {
   transactionStrategies: number[] | undefined;
   files: string[] | undefined;
 }
+
 
 
