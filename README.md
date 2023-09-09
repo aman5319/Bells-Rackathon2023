@@ -4,8 +4,7 @@
 
 ## Fraud Pattern Generation Challenge:
 
-    How can we create realistic, synthetic financial transaction data for the purpose of better understanding, detecting, and preventing fraud patterns and financial crimes in fintech?
-
+How can we create realistic, synthetic financial transaction data for the purpose of better understanding, detecting, and preventing fraud patterns and financial crimes in fintech?
 
 ## Our Solution
 
@@ -57,3 +56,40 @@ Constraints -
 Post-Hackathon Plan -
 
 The effectiveness of our generating synthetic data will depend on the quality of the strategies stored in our database and the accuracy of the algorithms used to analyze transactions. Regular updates and continuous learning from new fraud patterns will be essential for staying ahead of evolving threats.
+
+## Tech Stack
+
+1. Angular (For Frontend)
+2. FastAPI (Python Backend)
+3. Numpy
+4. Pandas
+5. Pytorch
+
+## Features
+
+1. Generate Synthetic Data by selecting different fraud strategies
+2. Download the file in zip
+   1. Report Generation for Data Analysis of the generated data.
+3. Training Conditional GAN (CTGAN) on the generated data to even more robust generating in high numbers.
+
+## Execution
+
+For Fronted
+
+```
+cd Bells
+ng serve -o
+```
+
+For Backend
+
+```
+pip install -r requirements.txt # for installing all the packages
+python3 app.py
+```
+
+Open
+
+Go in any browser open a new tab `localhost:4200`
+
+For Swagger UI `localhost:5000/docs`
