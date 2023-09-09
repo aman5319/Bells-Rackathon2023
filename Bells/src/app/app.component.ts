@@ -32,8 +32,8 @@ export class AppComponent {
 
   ngOnInit() {
     this.localStorage.clear();
-    let value = this.GetCompletedData(1, [1, 2]);
-    value.files = ['big_amount_deduction.csv'];
+    let value = this.GetCompletedData(1, [1]);
+    value.files = ['big_amount_deduction'];
     this.dataSource = this.pushData(value);
     
   }
