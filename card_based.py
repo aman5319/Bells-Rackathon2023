@@ -4,6 +4,8 @@ import random
 from tqdm.auto import tqdm
 import tempfile
 
+
+# generates geneuine data with small amount spent
 def generate_genuine_data_small_amount(number,):
     a = [generate_data.generate_customer_info()]*number
     b = [(generate_data.generate_merchant_name(false_merchant = False), generate_data.generate_merchant_location(indian = random.choice([True,False])))  for i in range(number)]
@@ -33,7 +35,8 @@ def generate_genuine_data_small_amount(number,):
                                "trans_payment_method","trans_verify_method","trans_status"])
     ],axis=1
     ).reset_index(drop=True)
-                                                                     
+
+# generates geneuine data with big amount spent
 def generate_genuine_data_huge_amount(number,):
     a = [generate_data.generate_customer_info()]*number
     b = [(generate_data.generate_merchant_name(false_merchant = False), generate_data.generate_merchant_location(indian = random.choice([True,False])))  for i in range(number)]
@@ -246,8 +249,8 @@ def multiple_retry():
 
 
 def money_laundring():
-    df = pd.read_csv("not_money_laundring.csv")
-    df1 = pd.read_csv("money_laundring.csv")
+    df = pd.read_csv("data/not_money_laundring.csv")
+    df1 = pd.read_csv("data/money_laundring.csv")
     a = random.randint(1000,2000)
     b = random.randint(3000,4000)
     return pd.concat([df1.iloc[a:b],df.iloc[a:b]]).reset_index(drop=True)
