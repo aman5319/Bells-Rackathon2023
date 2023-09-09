@@ -5,7 +5,7 @@ import { SyntheticDataComponent } from './synthetic-data/synthetic-data.componen
 
 const routes: Routes = [
     { path: '', component: LandingPageComponent },
-    { path: 'syntheticData', component: SyntheticDataComponent}
+    { path: 'ctgan', component: SyntheticDataComponent}
 ];
 
 @NgModule({

@@ -1,9 +1,76 @@
 <mat-card>
-    <mat-card-header>
-        <div mat-card-avatar class="example-header-image"></div>
-        <mat-card-title>Existing Synthetic Data</mat-card-title>
-      </mat-card-header>
-      <mat-card-content>
-        
-      </mat-card-content>
+  <mat-card-header>
+    <div mat-card-avatar class="example-header-image"></div>
+    <mat-card-title>Using GAN's to synthetically generate data</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <h4>CTGAN</h4>
+    <ul>
+      <li>CTGAN (Conditional Tabular GAN) stands out for its effectiveness in generating realistic synthetic tabular
+        data.</li>
+      <li>It excels in addressing unique challenges, such as handling discrete and continuous columns simultaneously,
+        multi-modal non-Gaussian values, and imbalanced categorical columns.</li>
+      <li>CTGAN introduces innovative techniques and consistently outperforms Bayesian network baselines and other GANs
+        in benchmarking experiments across various datasets and metrics.</li>
+      <li>It's a valuable tool for generating high-quality synthetic tabular data.</li>
+    </ul>
+
+    <!-- <pre>
+      <code [innerHTML]="code"></code>
+    </pre> -->
+  </mat-card-content>
+
+  <mat-card>
+    <mat-card-content>
+      <pre class="prism language-python">
+  <code>
+# installing CTGAN library
+pip install ctgan
+
+
+# All neccessary Imports
+import torch
+import pandas as pd
+import numpy as np
+from ctgan import CTGAN
+
+
+# reading one of the generated files
+df = pd.read_csv("big_amount_deduction.csv")
+
+
+# defining discrete_columns
+discrete_columns = ['cardholder_name', 'card_number', 'customer_age', 'customer_segment',
+      'card_type', 'customer_location', 'merchant_name', 'merchant_location',
+      'trans_id', 'trans_approval_code', 'trans_loc', 'trans_cat',
+      'trans_currency', 'mcc', 'trans_date',
+      'trans_payment_method', 'trans_verify_method', 'trans_status']
+
+
+# Model intitalization with hyper params
+ctgan = CTGAN(embedding_dim=64, generator_dim=(256, 256), discriminator_dim=(256, 256),
+                generator_lr=2e-4, generator_decay=1e-6, discriminator_lr=2e-4,
+                discriminator_decay=1e-6, batch_size=512, discriminator_steps=1,
+                log_frequency=True, verbose=False, epochs=10, pac=10, cuda=True)
+
+
+# Fitting over the data
+ctgan.fit(df, discrete_columns)
+
+
+
+
+# generating synthetic data which close follows the distribution of input.
+synthetic_data = ctgan.sample(1000)
+
+
+
+  </code>
+</pre>
+    </mat-card-content>
+  </mat-card>
+
+  <div style="overflow: scroll;">
+    <img src="assets\data.png" style="overflow: scroll;width: 150%; height:50%">
+  </div>
 </mat-card>

@@ -1,27 +1,88 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; background-color: #f9f9f9;}
+@import 'prismjs/themes/prism-okaidia.css';
 
-.custom-card {
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Adjust the values as needed */
+
+html,
+body {
+    height: 100%;
 }
 
-.custom-card:hover ,.mat-mdc-row:hover {
-    box-shadow: 0px 16px 32px rgba(0, 0, 0, 0.1); /* Adjust the values as needed */
-  }
-  
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    background-color: #f9f9f9;
+}
 
-  .mat-mdc-card.mdc-card {
-      padding: 1%;
-      margin: 1%;
-      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-      /* Adjust the values as needed */
-  }
+.custom-card {
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    /* Adjust the values as needed */
+}
 
-  .mat-mdc-card.mdc-card:hover {
-      padding: 1%;
-      margin: 1%;
-      box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
-      /* Adjust the values as needed */
-  }
+.custom-card:hover,
+.mat-mdc-row:hover {
+    box-shadow: 0px 16px 32px rgba(0, 0, 0, 0.1);
+    /* Adjust the values as needed */
+}
+
+
+.mat-mdc-card.mdc-card {
+    padding: 1%;
+    margin: 1%;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    /* Adjust the values as needed */
+}
+
+.mat-mdc-card.mdc-card:hover {
+    padding: 1%;
+    margin: 1%;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    /* Adjust the values as needed */
+}
+
+.sprint-outer-container {
+    font-size: 10px;
+    font-family: 'proxima-nova', 'Open Sans', sans-serif;
+    word-spacing: 1px;
+    -webkit-font-smoothing: antialiased;
+    box-sizing: border-box;
+    margin: 0 auto;
+    max-width: 1100px;
+    width: 90%;
+}
+
+.company-img {
+    display: inline;
+
+}
+
+.logo-title-wrapper {
+    margin-top: -9%;
+    padding-left: 4%;
+    opacity: 99%;
+    color: white;
+}
+
+.picture {
+    border-radius: 10px;
+    box-sizing: border-box;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.example-spacer {
+    flex: 1 1 auto;
+}
+
+.icon {
+    border: unset;
+    padding: 2%;
+}
+
+.mat-card {
+    padding: 5%;
+
+}
+
+.createButton:hover {
+    background-color: lightblue;
+}

@@ -1,12 +1,14 @@
 <mat-toolbar class="sticky-top header">
     <span>
-        <a class="regular cursor-default" style="border: 1px solid grey; border-radius: 20px;">
+        <a [routerLink]="['']" class="regular cursor-default" style="border: 1px solid grey; border-radius: 20px;">
             <img class="picture" style="width: 15%;
-            vertical-align: middle;" src="https://he-s3.s3.amazonaws.com/media/cache/6a/de/6adecd6c3ca18e8443c7f29ca1c547a2.png"
+            vertical-align: middle;"
+                src="https://he-s3.s3.amazonaws.com/media/cache/6a/de/6adecd6c3ca18e8443c7f29ca1c547a2.png"
                 alt="Rakuten India">
         </a>
-        <span class="team-name">&nbsp;&nbsp;&nbsp;Bells</span> - <span class="hackathon-name">Rakathon</span></span>
+        <span [routerLink]="['']" class="team-name">&nbsp;&nbsp;&nbsp;Bells</span> - <span
+            class="hackathon-name">Rakathon</span></span>
     <span class="example-spacer">&nbsp;&nbsp;</span>
-    <mat-icon class="example-icon" aria-hidden="false" aria-label="Example user verified icon">home</mat-icon>
-    <mat-icon class="example-icon" aria-hidden="false" aria-label="Example user verified icon">verified_user</mat-icon>
+    <span style="cursor: pointer;" [routerLink]="['/ctgan']">CTGAN &nbsp;<mat-icon class="example-icon  mat-button"
+            aria-label="Example user verified icon"></mat-icon></span>
 </mat-toolbar>
