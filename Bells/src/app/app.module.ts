@@ -24,6 +24,7 @@ import { LandingPageComponent } from './landing-page/landing-page.component';
 import { SyntheticDataComponent } from './synthetic-data/synthetic-data.component';
 import { HttpClientModule } from '@angular/common/http';
 import { LocalStorageService } from './local-storage.service';
+import {MatTooltipModule} from '@angular/material/tooltip';
 export const LOCAL_STORAGE = new InjectionToken<Storage>('localStorage');
 
 @NgModule({
@@ -50,7 +51,8 @@ export const LOCAL_STORAGE = new InjectionToken<Storage>('localStorage');
     MatSnackBarModule,
     ChartsModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    MatTooltipModule
   ],
   providers: [{ provide: LOCAL_STORAGE, useValue: window.localStorage }, LocalStorageService],
   bootstrap: [AppComponent],

@@ -4,7 +4,7 @@
             <h1 mat-dialog-title>Generate Synthetic Data </h1>
             <mat-dialog-content>
                 <div *ngFor="let type of transactions">
-                    <mat-checkbox [(ngModel)]=" type.isChecked" color="primary">
+                    <mat-checkbox matTooltip={{type.tooltip}} [(ngModel)]=" type.isChecked" color="primary">
                         {{type.name}}
                     </mat-checkbox>
                 </div>

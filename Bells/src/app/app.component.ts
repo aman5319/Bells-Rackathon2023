@@ -108,13 +108,10 @@ export class AppComponent {
   }
 
   CancelTraining(row: any) {
-    console.log(row);
+    this.dataSource = this.localStorage.getSpecificIndexDataAndSetDataBack(this.title, row.id - 1, true, false, false, []);
     this._snackBar.open("Cancelled Training", "Close");
-    let rowData = this.dataSource.find(x => x.name == row.name);
-    row.isTraining = false;
-    row.isCancelled = true;
-
   }
+
 
   pushData(value: TransactionData) {
     this.localStorage.setItem(this.title, value);

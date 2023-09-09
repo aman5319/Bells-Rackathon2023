@@ -82,11 +82,13 @@ export class TransactionType {
   id: number;
   isChecked: boolean = false;
   fileName: string;
+  tooltip: string
   constructor(name: string, id: number, isChecked = false, fileName: string) {
     this.name = name;
     this.id = id;
     this.isChecked = isChecked
     this.fileName = fileName
+    this.tooltip = 'sdgdsgsdg';
   }
 }
 
