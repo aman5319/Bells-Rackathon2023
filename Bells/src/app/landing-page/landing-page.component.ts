@@ -136,15 +136,8 @@ export class LandingPageComponent {
 
   downloadData(row: TransactionData) {
     
-      this.appService.getFile(this.getOutputFile(row.name)).subscribe((response)=> {
-        const a = document.createElement("a");
-          a.href = "data:text/zip," + response;
-          let filename = "element";
-          a.setAttribute("download", filename + ".zip");
-          document.body.appendChild(a);
-          a.click();
-          document.body.removeChild(a);
-      });
+    this.appService.downloadFile(this.getOutputFile(row.name));
+
    
   }
 }

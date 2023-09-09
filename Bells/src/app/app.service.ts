@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, forkJoin } from 'rxjs';
+import { saveAs } from 'file-saver';
 
 @Injectable({
   providedIn: 'root'
@@ -22,12 +23,12 @@ export class AppService {
     return this.http.get('assets\\localData\\' + name);
   }
 
-    getCSVFiles(files: any[]): Observable<Blob[]> {
-      return forkJoin(
-        files.map((file: string) => this.getFile(file)));
+    downloadFile(url: string) {
+      this.http.get(url, {
+        responseType: 'blob'
+      }).subscribe((r) => {
+        saveAs(r, "output.zip");
+      });
     }
-
-    getFile(file: string) {
-      return this.http.get(file, { responseType: 'blob' });
-    }
+   
 }

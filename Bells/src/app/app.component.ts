@@ -4,6 +4,7 @@ import { CreateSyntheticDataComponent, TransactionType } from './create-syntheti
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AppService } from './app.service';
 import { LocalStorageService } from './local-storage.service';
+import { saveAs } from 'file-saver';
 
 @Component({
   selector: 'app-root',
@@ -137,15 +138,11 @@ export class AppComponent {
 
   downloadData(row: TransactionData) {
     
-      this.appService.getFile(this.getOutputFile(row.name)).subscribe((response)=> {
-        const a = document.createElement("a");
-          a.href = "data:text/zip," + response;
-          let filename = "element";
-          a.setAttribute("download", filename + ".zip");
-          document.body.appendChild(a);
-          a.click();
-          document.body.removeChild(a);
-      });
+      // this.appService.getFile(this.getOutputFile(row.name)).subscribe((r) => {
+      //   saveAs(r, "output.zip");
+      // });
+
+      this.appService.downloadFile(this.getOutputFile(row.name));
    
   }
 }
