@@ -6,6 +6,9 @@ import uvicorn
 import os
 import pandas as pd
 from ydata_profiling import ProfileReport
+import zipfile
+import os
+
 
 app = FastAPI()
 app.add_middleware(
@@ -15,6 +18,21 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"]
 )
+
+def zippit(folder_path):
+    output_zip_filename = f'{folder_path}/output.zip'
+    # Create a ZIP file for writing
+    with zipfile.ZipFile(output_zip_filename, 'w', zipfile.ZIP_DEFLATED) as zipf:
+        # Iterate through all files in the folder
+        for foldername, subfolders, filenames in os.walk(folder_path):
+            for filename in filenames:
+                # Check if the file is a CSV file
+                if filename.endswith('.csv'):
+                    # Get the full file path
+                    file_path = os.path.join(foldername, filename)
+                    # Add the CSV file to the ZIP archive
+                    zipf.write(file_path, os.path.relpath(file_path, folder_path))
+                    os.remove(file_path)
 
 @app.get("/")
 def read_root(trainingBatch):
@@ -56,7 +74,7 @@ def post_root(params: List[int], trainingBatch: str):
             df.to_csv(f"{temp_dir}/money_laundering.csv",index=False)
             ProfileReport(df,title="Money Laundering").to_file(f"{temp_dir}/money_laundering.html")
             lstFile.append("money_laundering")
-
+    zippit(temp_dir)
     return lstFile
 
 if __name__ == '__main__':
