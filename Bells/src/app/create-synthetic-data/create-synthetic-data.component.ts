@@ -11,9 +11,9 @@ export class CreateSyntheticDataComponent {
     completed: false,
     color: 'primary',
     subtasks: [
-      {name: 'Transaction1', completed: false, color: 'primary'},
-      {name: 'Transaction2', completed: false, color: 'accent'},
-      {name: 'Transaction3', completed: false, color: 'warn'},
+      { name: 'Transaction1', completed: false, color: 'primary' },
+      { name: 'Transaction2', completed: false, color: 'accent' },
+      { name: 'Transaction3', completed: false, color: 'warn' },
     ],
   };
 
@@ -23,7 +23,7 @@ export class CreateSyntheticDataComponent {
   //     [ new TransactionType ('Fraud 1', 1, false), 
   //     new TransactionType ('Fraud 2', 2, false), 
   //     new TransactionType ('Fraud 3', 3, false)], false),
-      
+
   //     new Transactions(2, 'Transactions',
   //     [ new TransactionType ('Fraud 1', 4, false), 
   //     new TransactionType ('Fraud 2', 5, false), 
@@ -33,45 +33,25 @@ export class CreateSyntheticDataComponent {
   //     [ new TransactionType ('Fraud 1', 7, false), 
   //     new TransactionType ('Fraud 2', 8, false), 
   //     new TransactionType ('Fraud 3', 9, false)], false),
-      
+
   //     new Transactions(4, ' Card/  Card ',
   //     [ new TransactionType ('Fraud 1', 10, false), 
   //     new TransactionType ('Fraud 2', 11, false), 
   //     new TransactionType ('Fraud 3', 12, false)], false),
-      
+
   // ];
 
 
-  transactions: TransactionType[] = 
-  [
-    new TransactionType ('Fraud 1', 1, false), 
-        new TransactionType ('Fraud 2', 2, false), 
-        new TransactionType ('Fraud 3', 3, false),
-        new TransactionType ('Fraud 1', 4, false), 
-        new TransactionType ('Fraud 2', 5, false), 
-        new TransactionType ('Fraud 3', 6, false),
-  
-        new TransactionType ('Fraud 1', 7, false), 
-        new TransactionType ('Fraud 2', 8, false), 
-        new TransactionType ('Fraud 3', 9, false)
-        
-        
+  transactions: TransactionType[] =
+    [
+      new TransactionType('Sudden Deduction of huge amount', 1, false, 'big_amount_deduction'),
+      new TransactionType('High Volume Small Deductions', 2, false, 'high_volume_small_deduction'),
+      new TransactionType('Fake Merchants/Geo-Location Hopping/ Phishing website', 3, false, 'fake_merchant_false_location'),
+      new TransactionType('Multiple Retries before succes/Transactions in High-Risk Category (Casino, Child Ponography) ', 4, false, 'multiple_retry'),
+      new TransactionType('Money Laundering', 5, false, 'money_laundering')
     ];
 
   allComplete: boolean = false;
-
-  
-
-  // someComplete(parentId: number): boolean {
-  //   var trans = this.transactions.find(x => x.id == parentId);
-    
-  //   if (trans == null) {
-  //     return false;
-  //   }
-
-  //   let count = trans.filter((t: TransactionType) => t.isChecked).length;
-  //   return count > 0 && !this.allComplete;
-  // }
 
   setAll(completed: boolean) {
     this.allComplete = completed;
@@ -102,10 +82,11 @@ export class TransactionType {
   id: number;
   isChecked: boolean = false;
 
-  constructor(name: string, id: number, isChecked = false) {
+  constructor(name: string, id: number, isChecked = false, fileName: string) {
     this.name = name;
     this.id = id;
     isChecked = isChecked
+    fileName = fileName
   }
 }
 

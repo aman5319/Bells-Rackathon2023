@@ -24,9 +24,10 @@ export class AppComponent {
 
   ngOnInit() {
     this.localStorage.clear();
-    let value = this.GetData(1, [1, 2]);
-    value.files = ['assets/localData/' + value.name + '/big_amount_deduction.csv'];
+    let value = this.GetCompletedData(1, [1, 2]);
+    value.files = ['big_amount_deduction.csv'];
     this.dataSource = this.pushData(value);
+    
   }
 
   openDialog() {
@@ -35,11 +36,6 @@ export class AppComponent {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      
-      this.localStorage.getFilesData(this.title, 0).forEach((element: string) => {
-        this.appService.getFile(element);
-      });
-     
       let data = result.filter((x: TransactionType) => x.isChecked);
       if (data.length > 0) {
         let trans_ids = data.map((x: TransactionType) => x.id);
@@ -75,6 +71,18 @@ export class AppComponent {
     };
   }
 
+  public GetCompletedData(count: number, trans_ids: number[]): TransactionData {
+    return {
+      isTraining: false,
+      isCompleted: true,
+      isCancelled: false,
+      name: 'Batch' + count,
+      id: count,
+      transactionStrategies: trans_ids,
+      files: ['big_amount_deduction.csv']
+    };
+  }
+
   getRecord(row: any) {
     console.log(row);
   }
@@ -104,6 +112,21 @@ export class AppComponent {
     this.localStorage.setItem(this.title, value);
     return this.localStorage.getItem(this.title);
   }
+
+  downloadData(row: TransactionData) {
+    this.localStorage.getFilesData(this.title, row.id).forEach((element: string) => {
+      this.appService.getFile('assets/localData' + row.name + '/' + element).subscribe((response)=> {
+        const a = document.createElement("a");
+          a.href = "data:text/csv," + response;
+          let filename = "element";
+          a.setAttribute("download", filename + ".csv");
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+      });
+    });
+   
+  }
 }
 
 
@@ -116,4 +139,5 @@ export interface TransactionData {
   transactionStrategies: number[] | undefined;
   files: string[] | undefined;
 }
+
 

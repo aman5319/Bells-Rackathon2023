@@ -1,16 +1,18 @@
-<div class="col-lg-12">
-    <h2 mat-dialog-title>Generate Synthetic Data </h2>
-    <mat-dialog-content>
-
-
-        <div *ngFor="let type of transactions">
-            <mat-checkbox [(ngModel)]=" type.isChecked" color="primary">
-                {{type.name}}
-            </mat-checkbox>
+<div style="padding: 2%">
+    <mat-card>
+        <div class="col-lg-12">
+            <h1 mat-dialog-title>Generate Synthetic Data </h1>
+            <mat-dialog-content>
+                <div *ngFor="let type of transactions">
+                    <mat-checkbox [(ngModel)]=" type.isChecked" color="primary">
+                        {{type.name}}
+                    </mat-checkbox>
+                </div>
+            </mat-dialog-content>
+            <mat-dialog-actions align="end">
+                <button mat-button color="primary" [mat-dialog-close]="">Cancel</button>
+                <button mat-raised-button style="border: unset !important" color="accent"  [mat-dialog-close]="transactions" cdkFocusInitial>Train</button>
+            </mat-dialog-actions>
         </div>
-    </mat-dialog-content>
-    <mat-dialog-actions align="end">
-        <button mat-button mat-dialog-close>Cancel</button>
-        <button mat-button [mat-dialog-close]="transactions" cdkFocusInitial>Train</button>
-    </mat-dialog-actions>
+    </mat-card>
 </div>

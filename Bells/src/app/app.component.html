@@ -1,9 +1,21 @@
 <app-header></app-header>
 <router-outlet></router-outlet>
 
-<div style="padding: 5%">
-  <h1 style="text-align: center;">Your Training Data</h1>
+<mat-card>
+
+
+  <h1 style="text-align: center;">Existing Synthetic Data</h1>
   <mat-card class="custom-card" style="padding: 3%">
+
+    <mat-card-content>
+      <div style="text-align: center;">
+        <button mat-raised-button class="createButton" style="padding: 3%" (click)="openDialog()">Create Your Own
+          <br>Synthetic Data</button>
+
+      </div>
+    </mat-card-content>
+
+    <br>
     <table mat-table [dataSource]="dataSource" class="custom-table">
 
       <!--- Note that these columns can be defined in any order.
@@ -33,13 +45,10 @@
         <th mat-header-cell *matHeaderCellDef style="width: 30%;"> Actions </th>
         <td mat-cell *matCellDef="let element">
           <div class="row" style="display: inline;">
-            <span class="col-lg-4">
-              <button mat-raised-button class="space">Download</button> &nbsp;&nbsp;
+            <span class="col-lg-3">
+              <button mat-raised-button class="space" (click)="downloadData(element)">Download</button> &nbsp;&nbsp;
             </span>
-            <span class="col-lg-4">
-              <button mat-raised-button class="space" (click)="RetrainModel(element)">Retrain</button> &nbsp;&nbsp;
-            </span>
-            <span *ngIf="element.isTraining" class="col-lg-4">
+            <span *ngIf="element.isTraining" class="col-lg-3">
               <button mat-raised-button class="space" (click)="CancelTraining(element)">Cancel</button>
             </span>
           </div>
@@ -51,91 +60,5 @@
       <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="getRecord(row)"></tr>
     </table>
   </mat-card>
-</div>
-
-
-<section>
-  <mat-card-content>
-    <div style="text-align: center;">
-      <span style="vertical-align: center !important;color: accent" class="material-icons">add_circle</span>
-      <button mat-button (click)="openDialog()" color="accent">Create Your Own <br>Synthetic Data</button>
-    </div>
-    <div class="progress">
-      <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75"
-        aria-valuemin="0" aria-valuemax="100" style="width: 75%"></div>
-    </div>
-  </mat-card-content>
-</section>
-
-<br>
-<br>
-
-<div style="width: 40%;padding: 3%">
-
-<kendo-chart style="width: 40%; height:250px">
-  <kendo-chart-series>
-    <kendo-chart-series-item [data]="[1, 4, 5, 2, 1, 8]">
-    </kendo-chart-series-item>
-  </kendo-chart-series>
-</kendo-chart>
-
-<br>
-<br>
-/* Area Chart */
-
-<kendo-chart style="width:50%">
-  <kendo-chart-title text="Units sold"></kendo-chart-title>
-
-  <kendo-chart-category-axis>
-    <kendo-chart-category-axis-item
-      [categories]="['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul']"
-      [title]="{ text: 'Months' }"
-    >
-    </kendo-chart-category-axis-item>
-  </kendo-chart-category-axis>
-
-  <kendo-chart-series-defaults [highlight]="{ inactiveOpacity: 0.3 }">
-  </kendo-chart-series-defaults>
-
-  <kendo-chart-series>
-    <kendo-chart-series-item
-      type="area"
-      [data]="[123, 276, 310, 212, 240, 156, 98]"
-    >
-    </kendo-chart-series-item>
-    <kendo-chart-series-item
-      type="area"
-      [data]="[165, 210, 287, 144, 190, 167, 212]"
-    >
-    </kendo-chart-series-item>
-    <kendo-chart-series-item
-      type="area"
-      [data]="[56, 140, 195, 46, 123, 78, 95]"
-    >
-    </kendo-chart-series-item>
-  </kendo-chart-series>
-</kendo-chart>
-
-
-
-
-<mat-card style="width: 50%;padding:2%">
-
-  <kendo-chart>
-    <kendo-chart-series>
-      <kendo-chart-series-item
-        type="area"
-        [stack]="{ type: '100%' }"
-        [data]="[1, 2, 3, 5]"
-      >
-      </kendo-chart-series-item>
-      <kendo-chart-series-item type="area" [data]="[5, 3, 2, 1]">
-      </kendo-chart-series-item>
-    </kendo-chart-series>
-  </kendo-chart>
-
 </mat-card>
-</div>
-
-
 <app-footer></app-footer>
